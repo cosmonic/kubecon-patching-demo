@@ -57,6 +57,19 @@ impl Xkcd for XkcdProviderProvider {
         );
 
         Ok(html.into_bytes())
+
+        // BAD CODE
+        // Ok(r#"<!DOCTYPE html>
+        // <html>
+        // <head>
+        //     <title>Your XKCD comic</title>
+        // </head>
+        // <body>
+        //     <h1>I CAN HAZ YOUR CODEZ</h1>
+        //     <img src="https://i.pinimg.com/originals/19/f5/2c/19f52c46a5617bda07453569586e9314.jpg"/>
+        // </body>
+        // </html>
+        // "#.as_bytes().to_vec())
     }
 }
 

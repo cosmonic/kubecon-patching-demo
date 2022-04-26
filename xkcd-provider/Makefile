@@ -1,6 +1,6 @@
 # xkcd-provider Makefile
 
-CAPABILITY_ID = "wasmcloud:example:xkcd_provider"
+CAPABILITY_ID = "cosmonic:xkcd"
 NAME = "xkcd-provider"
 VENDOR = "Cosmonic"
 PROJECT = xkcd_provider
