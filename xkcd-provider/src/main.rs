@@ -5,7 +5,7 @@ use wasmbus_rpc::provider::prelude::*;
 use xkcd_interface::{Xkcd, XkcdReceiver};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    provider_main(XkcdProviderProvider::default())?;
+    provider_main(XkcdProvider::default())?;
 
     eprintln!("xkcd-provider provider exiting");
     Ok(())
@@ -14,14 +14,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// xkcd-provider capability provider implementation
 #[derive(Default, Clone, Provider)]
 #[services(Xkcd)]
-struct XkcdProviderProvider {}
+struct XkcdProvider {}
 
 /// use default implementations of provider message handlers
-impl ProviderDispatch for XkcdProviderProvider {}
-impl ProviderHandler for XkcdProviderProvider {}
+impl ProviderDispatch for XkcdProvider {}
+impl ProviderHandler for XkcdProvider {}
 
 #[async_trait]
-impl Xkcd for XkcdProviderProvider {
+impl Xkcd for XkcdProvider {
     async fn get_comic(&self, _ctx: &Context, arg: &u32) -> RpcResult<Vec<u8>> {
         let url = format!("https://xkcd.com/{}/info.0.json", arg);
         let resp = reqwest::get(url)
@@ -45,7 +45,7 @@ impl Xkcd for XkcdProviderProvider {
             r#"<!DOCTYPE html>
         <html>
         <head>
-            <title>Your XKCD comic</title>
+            <title>Your xkcd comic</title>
         </head>
         <body>
             <h1>{}</h1>

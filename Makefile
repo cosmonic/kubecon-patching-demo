@@ -1,6 +1,5 @@
 .PHONY: help build run info start
 
-export WASMCLOUD_HOST_CONSTRAINT ?= app=xkcd
 HTTPSERVER_URL ?= wasmcloud.azurecr.io/httpserver:0.15.0
 HTTPSERVER_ID ?= VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M
 HTTPSERVER_CONTRACT ?= wasmcloud:httpserver
@@ -20,21 +19,25 @@ start: ## Build, push, and start the actor and provider in this example
 	@make push -sC xkcd-provider
 	-make start -sC xkcd
 	-make start -sC xkcd-provider
-	-wash ctl start provider $(HTTPSERVER_URL) -c $(WASMCLOUD_HOST_CONSTRAINT)
+	-wash ctl start provider $(HTTPSERVER_URL)
 
 link: ## Link the XKCD actor and XKCD provider on their contract ID
-	$(WASH) ctl link put \
+	@$(WASH) ctl link put \
 		$(shell make actor_id -sC xkcd) \
 		$(shell wash par inspect xkcd-provider/build/xkcd_provider.par.gz -o json | jq -r '.service') \
 		$(XKCD_CONTRACT)
-	$(WASH) ctl link put \
+	@$(WASH) ctl link put \
 		$(shell make actor_id -sC xkcd) \
 		$(HTTPSERVER_ID) \
 		$(HTTPSERVER_CONTRACT) \
 		ADDRESS=0.0.0.0:8085
 
-run: build link start ## Build and run the full example
+run: build link ## Build and run the full example
+	-@wash ctl start provider $(HTTPSERVER_URL)
+	@echo "Prerequisite services started and linked, navigate to http://localhost:4000 to start xkcd components from file"
+	@echo "Once you've started 'xkcd' and the 'xkcd-provider', you can view your random comic at http://localhost:8085"
+
+run-registry: build link start ## Build and run the full example, pushing to a local OCI compliant registry
 
 info:
 	$(WASH) --version
-	echo "Host constraint: $(WASMCLOUD_HOST_CONSTRAINT)"

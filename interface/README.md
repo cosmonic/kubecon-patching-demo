@@ -1,4 +1,3 @@
-# Interface for the Factorial service, wasmcloud:example:factorial
+# Interface for the xkcd service, cosmonic:xkcd
 
-This is an interface for a simple service that calculates
-the fatorial of a whole number.
+A simple interface for a capability provider that fetches a xkcd comic based on its comic number.

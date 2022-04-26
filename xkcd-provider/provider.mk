@@ -145,7 +145,6 @@ start:
 	$(WASH) ctl start provider $(oci_url) \
 		--host-id $(shell $(WASH) ctl get hosts -o json | jq -r ".hosts[0].id") \
 		--link-name $(link_name) \
-		--constraint $(WASMCLOUD_HOST_CONSTRAINT) \
 		--timeout-ms 15000
 
 # inspect claims on par file
