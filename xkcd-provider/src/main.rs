@@ -58,7 +58,7 @@ impl Xkcd for XkcdProvider {
 
         Ok(html.into_bytes())
 
-        // BAD CODE
+        // NEW UPDATE HERE
         // Ok(r#"<!DOCTYPE html>
         // <html>
         // <head>

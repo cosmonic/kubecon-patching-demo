@@ -14,13 +14,6 @@ build: ## Build the interface, actor, and provider for this example
 	@make -sC xkcd
 	@make -sC xkcd-provider
 
-start: ## Build, push, and start the actor and provider in this example
-	@make push -sC xkcd
-	@make push -sC xkcd-provider
-	-make start -sC xkcd
-	-make start -sC xkcd-provider
-	-wash ctl start provider $(HTTPSERVER_URL)
-
 link: ## Link the XKCD actor and XKCD provider on their contract ID
 	@$(WASH) ctl link put \
 		$(shell make actor_id -sC xkcd) \
@@ -33,7 +26,7 @@ link: ## Link the XKCD actor and XKCD provider on their contract ID
 		ADDRESS=0.0.0.0:8085
 
 run: build link ## Build and run the full example
-	-@wash ctl start provider $(HTTPSERVER_URL)
+	-@wash ctl start provider $(HTTPSERVER_URL) --skip-wait
 	@echo "Prerequisite services started and linked, navigate to http://localhost:4000 to start xkcd components from file"
 	@echo "Once you've started 'xkcd' and the 'xkcd-provider', you can view your random comic at http://localhost:8085"
 

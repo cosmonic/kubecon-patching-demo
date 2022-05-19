@@ -2,7 +2,7 @@
 
 This is the demo code for our patching example in our talk "Disrupting the Downtime Continuum."
 
-To run this example, simply follow the wasmCloud [installation](https://wasmcloud.dev/overview/installation/) guide to install prerequisites and then run:
+To run this example, simply follow the wasmCloud [installation](https://wasmcloud.dev/overview/installation/) guide to install prerequisites. Once you have NATS and a wasmCloud host running, execute:
 
 ```shell
 make run
